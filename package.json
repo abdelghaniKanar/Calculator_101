@@ -1,0 +1,11 @@
+{
+  "name": "brief-1",
+  "version": "1.0.0",
+  "description": "<h1>Simple Calculator in Node.js</h1>\r <h2>Objective</h2>\r <p>This project is a simple calculator built using Node.js. It is designed to perform basic mathematical operations while showcasing key JavaScript object-oriented programming concepts and introducing error handling principles.</p>\r <h2>Features</h2>\r <ul>\r <li>Perform addition, subtraction, multiplication, and division.</li>\r <li>Use of classes and objects to structure the calculator logic.</li>\r <li>Error handling for invalid input, division by zero, and unsupported operations.</li>\r </ul>\r <h2>Technologies Used</h2>\r <ul>\r <li>Node.js: JavaScript runtime used to run the application.</li>\r <li>JavaScript (ES6): Used for object-oriented programming concepts such as classes and methods.</li>\r </ul>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
