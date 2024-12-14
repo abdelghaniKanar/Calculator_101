@@ -1,6 +1,7 @@
 //Importing necessary modules
-const exp = require("constants");
 const readline = require("readline");
+// Import the exported object from support.js
+const CalculatorSupport = require("./support");
 
 // Create an interface for interacting with the user
 const rl = readline.createInterface({
@@ -14,115 +15,7 @@ const rl = readline.createInterface({
 
 console.log("\nWelcome To Calculator 101");
 
-controlPanel();
-
-// Reserved block for used functions
-
-function addition(x, y) {
-  console.log(`\n${x} + ${y} = `, x + y);
-  controlPanel();
-}
-
-function subtraction(x, y) {
-  console.log(`\n${x} - ${y} = `, x - y);
-  controlPanel();
-}
-
-function multiplication(x, y) {
-  console.log(`\n${x} * ${y} = `, x * y);
-  controlPanel();
-}
-
-function division(x, y) {
-  // Division validation: Ensure the second number is not zero.
-  if (y === 0) {
-    console.log(
-      "Error: Division requires a second number that is not zero. Please try again!"
-    );
-  } else {
-    console.log(`\n${x} / ${y} = `, x / y);
-  }
-  controlPanel();
-}
-
-function exponentiation(x, y) {
-  // Here, we handle a less common case: negative exponents.
-  // For more details, check the following link:
-  // https://www.uncp.edu/sites/default/files/2022-12/Negative%20Exponents.pdf
-
-  // Quick explanation: A negative exponent like 4^(-2) means 1 / (4 * 4).
-  // However, if the base is 0 (e.g., 0^(-2) => 1 / (0 * 0)), the result is undefined because
-  // it requires dividing by 0, which is impossible.
-  // To handle this, we use the following logic:
-
-  switch (x) {
-    case 0:
-      if (y < 0) {
-        console.log(
-          `Error: Operation 1 / (0 * 0 * ...) is undefined. Please try again!`
-        );
-      } else {
-        console.log(`\n${x} ^ ${y} = `, Math.pow(x, y));
-      }
-      break;
-    default:
-      console.log(`\n${x} ^ ${y} = `, Math.pow(x, y));
-      break;
-  }
-  controlPanel();
-}
-
-function squareRoot(x) {
-  // Handling negative values
-  // Method 1: Display an error message
-  if (x < 0) {
-    console.log(
-      "Error: Square Root requires a positive value. Please try again!"
-    );
-  } else {
-    console.log(`\nSquare root of (${x}) is: `, Math.sqrt(x));
-  }
-
-  // Method 2: Convert negative values to positive
-  // console.log(`\nSquare root of (${x}) is: `, Math.sqrt(Math.abs(x)));
-
-  controlPanel();
-}
-
-function factorial(x) {
-  // Handling negative values
-  // Method 1: Display an error message
-  if (x < 0) {
-    console.log(
-      "Error: Factorial requires a positive value. Please try again!"
-    );
-  } else {
-    let x_factorial = 1;
-    if (x === 0 || x === 1) {
-      console.log(`\n${x}! = `, 1);
-    } else {
-      for (let i = x; i > 1; i--) {
-        x_factorial = x_factorial * i;
-      }
-      console.log(`\n${x}! = `, x_factorial);
-    }
-  }
-
-  // Method 2: Convert negative values to positive
-  // x = Math.abs(x);
-  // let x_factorial = 1;
-  // if (x === 0 || x === 1) {
-  //   console.log(`\n${x}! = `, 1);
-  // } else {
-  //   for (let i = x; i > 1; i--) {
-  //     x_factorial = x_factorial * i;
-  //   }
-  //   console.log(`\n${x}! = `, x_factorial);
-  // }
-
-  controlPanel();
-}
-
+// Main function: Control Panel for the 101 Calculator
 function controlPanel() {
   console.log("\nControl Panel: ");
   console.log("1. For Addition (+)");
@@ -160,7 +53,6 @@ function controlPanel() {
             console.log("\nYou chose to perform exponentiation operation!\n");
             break;
         }
-
         // Getting user input numbers
         rl.question("enter first number: ", (firstNumber) => {
           rl.question("enter second number: ", (secondNumber) => {
@@ -171,31 +63,37 @@ function controlPanel() {
             switch (choice) {
               // Addition Operation
               case "1":
-                addition(x, y);
+                CalculatorSupport.addition(x, y);
+                controlPanel();
                 break;
 
               // Subtraction Operation
               case "2":
-                subtraction(x, y);
+                CalculatorSupport.subtraction(x, y);
+                controlPanel();
                 break;
 
               // Multiplication Operation
               case "3":
-                multiplication(x, y);
+                CalculatorSupport.multiplication(x, y);
+                controlPanel();
                 break;
 
               // Division Operation
               case "4":
-                division(x, y);
+                CalculatorSupport.division(x, y);
+                controlPanel();
                 break;
 
               // Exponentiation Operation
               case "5":
-                exponentiation(x, y);
+                CalculatorSupport.exponentiation(x, y);
+                controlPanel();
                 break;
             }
           });
         });
+
         break;
 
       case "6":
@@ -210,7 +108,6 @@ function controlPanel() {
             console.log("\nYou chose to perform factorial operation!\n");
             break;
         }
-
         // Getting user input number
         rl.question("enter a number: ", (number) => {
           const x = parseFloat(number);
@@ -219,11 +116,13 @@ function controlPanel() {
           switch (choice) {
             // Square Root Operation
             case "6":
-              squareRoot(x);
+              CalculatorSupport.squareRoot(x);
+              controlPanel();
               break;
             // Factorial Operation
             case "7":
-              factorial(x);
+              CalculatorSupport.factorial(x);
+              controlPanel();
               break;
           }
         });
@@ -243,3 +142,5 @@ function controlPanel() {
     }
   });
 }
+
+controlPanel();
