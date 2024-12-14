@@ -73,159 +73,182 @@ function controlPanel() {
   console.log("6. For Square Root (√)");
   console.log("7. For Factorial (!)");
   console.log("8. For Getting Out Of The 101");
-  // Getting user input using the 'question' method
+  // Getting user choice
   rl.question("\nPlease enter the number of your choice: ", (choice) => {
     switch (choice) {
       case "1":
-        // Addition Operation
-        console.log("\nYou chose to perform addition operation!\n");
-        rl.question("enter first number: ", (firstNumber) => {
-          rl.question("enter second number: ", (secondNumber) => {
-            const x = parseFloat(firstNumber);
-            const y = parseFloat(secondNumber);
-            addition(x, y);
-          });
-        });
-        break;
       case "2":
-        // Subtraction Operation
-        console.log("\nYou chose to perform subtraction operation!\n");
-        rl.question("enter first number: ", (firstNumber) => {
-          rl.question("enter second number: ", (secondNumber) => {
-            const x = parseFloat(firstNumber);
-            const y = parseFloat(secondNumber);
-            subtraction(x, y);
-          });
-        });
-        break;
       case "3":
-        // Multiplication Operation
-        console.log("\nYou chose to perform multiplication operation!\n");
-        rl.question("enter first number: ", (firstNumber) => {
-          rl.question("enter second number: ", (secondNumber) => {
-            const x = parseFloat(firstNumber);
-            const y = parseFloat(secondNumber);
-            multiplication(x, y);
-          });
-        });
-        break;
       case "4":
-        // Division Operation
-        console.log("\nYou chose to perform division operation!\n");
-        rl.question("enter first number: ", (firstNumber) => {
-          rl.question("enter second number: ", (secondNumber) => {
-            const x = parseFloat(firstNumber);
-            const y = parseFloat(secondNumber);
-
-            // We don't need to check if the second number is zero because the result will automatically display as "Infinity" in such cases.
-            //division(x, y);
-
-            // Division validation: Ensure the second number is not zero.
-            if (y === 0) {
-              console.log(
-                "Error: Division requires a second number that is not zero. Please try again!"
-              );
-              controlPanel();
-            } else {
-              division(x, y);
-            }
-          });
-        });
-        break;
       case "5":
-        // Exponentiation Operation
-        console.log("\nYou chose to perform exponentiation operation!\n");
+        // Controlling Operations with two numbers (+, -, *, /, ^)
+
+        // Providing titles
+        switch (choice) {
+          case "1":
+            console.log("\nYou chose to perform addition operation!\n");
+            break;
+          case "2":
+            console.log("\nYou chose to perform subtraction operation!\n");
+            break;
+          case "3":
+            console.log("\nYou chose to perform multiplication operation!\n");
+            break;
+          case "4":
+            console.log("\nYou chose to perform division operation!\n");
+            break;
+          case "5":
+            console.log("\nYou chose to perform exponentiation operation!\n");
+            break;
+        }
+
+        // Getting user input numbers
         rl.question("enter first number: ", (firstNumber) => {
           rl.question("enter second number: ", (secondNumber) => {
             const x = parseFloat(firstNumber);
             const y = parseFloat(secondNumber);
 
-            // Using the `exponentiation()` function directly works fine
+            //Controlling Calculation Process
+            switch (choice) {
+              // Addition Operation
+              case "1":
+                addition(x, y);
+                break;
 
-            // exponentiation(x, y);
+              // Subtraction Operation
+              case "2":
+                subtraction(x, y);
+                break;
 
-            // But here, we handle a less common case: negative exponents.
-            // For more details, check the following link:
-            // https://www.uncp.edu/sites/default/files/2022-12/Negative%20Exponents.pdf
+              // Multiplication Operation
+              case "3":
+                multiplication(x, y);
+                break;
 
-            // Quick explanation: A negative exponent like 4^(-2) means 1 / (4 * 4).
-            // However, if the base is 0 (e.g., 0^(-2) => 1 / (0 * 0)), the result is undefined because
-            // it requires dividing by 0, which is impossible.
-            // To handle this, we use the following logic:
+              // Division Operation
+              case "4":
+                // We don't need to check if the second number is zero because the result will automatically display as "Infinity" in such cases.
+                //division(x, y);
 
-            switch (x) {
-              case 0:
-                if (y < 0) {
+                // Division validation: Ensure the second number is not zero.
+                if (y === 0) {
                   console.log(
-                    `Error: Operation 1 / (0 * 0 * ...) is undefined. Please try again!`
+                    "Error: Division requires a second number that is not zero. Please try again!"
                   );
                   controlPanel();
                 } else {
-                  exponentiation(x, y);
+                  division(x, y);
                 }
                 break;
-              default:
-                exponentiation(x, y);
+
+              // Exponentiation Operation
+              case "5":
+                // Using the `exponentiation()` function directly works fine
+
+                // exponentiation(x, y);
+
+                // But here, we handle a less common case: negative exponents.
+                // For more details, check the following link:
+                // https://www.uncp.edu/sites/default/files/2022-12/Negative%20Exponents.pdf
+
+                // Quick explanation: A negative exponent like 4^(-2) means 1 / (4 * 4).
+                // However, if the base is 0 (e.g., 0^(-2) => 1 / (0 * 0)), the result is undefined because
+                // it requires dividing by 0, which is impossible.
+                // To handle this, we use the following logic:
+
+                switch (x) {
+                  case 0:
+                    if (y < 0) {
+                      console.log(
+                        `Error: Operation 1 / (0 * 0 * ...) is undefined. Please try again!`
+                      );
+                      controlPanel();
+                    } else {
+                      exponentiation(x, y);
+                    }
+                    break;
+                  default:
+                    exponentiation(x, y);
+                    break;
+                }
                 break;
             }
           });
         });
         break;
+
       case "6":
-        // Square Root Operation
-        console.log("\nYou chose to perform square root operation!\n");
-        rl.question("enter a number: ", (number) => {
-          const x = parseFloat(number);
-
-          // The squareRoot function works fine for positive values,
-          // but it doesn't handle negative values
-
-          // squareRoot(x);
-
-          // Handling negative values
-          // Method 1: Display an error message
-
-          if (x < 0) {
-            console.log(
-              "Error: Square Root requires a positive value. Please try again!"
-            );
-            controlPanel();
-          } else {
-            squareRoot(x);
-          }
-
-          // Method 2: Convert negative values to positive
-
-          // squareRoot(Math.abs(x));
-        });
-        break;
       case "7":
-        // Factorial Operation
-        console.log("\nYou chose to perform factorial operation!\n");
+        // Controlling Operations with one number (√, !)
+
+        // Providing titles
+        switch (choice) {
+          case "6":
+            console.log("\nYou chose to perform square root operation!\n");
+            break;
+          case "7":
+            console.log("\nYou chose to perform factorial operation!\n");
+            break;
+        }
+
+        // Getting user input number
         rl.question("enter a number: ", (number) => {
           const x = parseFloat(number);
 
-          // The factorial is undefined for negative integers
-          // Method 1: Display an error message
+          //Controlling Calculation Process
+          switch (choice) {
+            // Square Root Operation
+            case "6":
+              // The squareRoot function works fine for positive values,
+              // but it doesn't handle negative values
 
-          if (x < 0) {
-            console.log(
-              "Error: Factorial requires a positive value. Please try again!"
-            );
-            controlPanel();
-          } else {
-            factorial(x);
+              // squareRoot(x);
+
+              // Handling negative values
+              // Method 1: Display an error message
+
+              if (x < 0) {
+                console.log(
+                  "Error: Square Root requires a positive value. Please try again!"
+                );
+                controlPanel();
+              } else {
+                squareRoot(x);
+              }
+
+              // Method 2: Convert negative values to positive
+
+              // squareRoot(Math.abs(x));
+              break;
+            // Factorial Operation
+            case "7":
+              // The factorial is undefined for negative integers
+              // Method 1: Display an error message
+
+              if (x < 0) {
+                console.log(
+                  "Error: Factorial requires a positive value. Please try again!"
+                );
+                controlPanel();
+              } else {
+                factorial(x);
+              }
+
+              // Method 2: Convert negative values to positive
+
+              // factorial(Math.abs(x));
+              break;
           }
-
-          // Method 2: Convert negative values to positive
-
-          // factorial(Math.abs(x));
         });
         break;
+
       case "8":
+        // Controlling exit functionality
+
         console.log(`\n101 said "Goodbye!"\n`);
         rl.close();
         break;
+
       default:
         console.log(
           "Error: Please enter a number from the control panel. Please try again!"
