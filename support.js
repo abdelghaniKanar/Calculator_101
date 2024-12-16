@@ -5,6 +5,14 @@
 // mathematical operations.
 
 class CalculatorSupport {
+  // Input Validation
+  static validateInput(userInput) {
+    if (isNaN(userInput) === false) {
+      return parseFloat(userInput);
+    } else {
+      throw new Error("You need to enter a digital value!");
+    }
+  }
   // Method for addition
   static addition(x, y) {
     console.log(`\n${x} + ${y} = `, x + y);

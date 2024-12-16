@@ -56,40 +56,45 @@ function controlPanel() {
         // Getting user input numbers
         rl.question("enter first number: ", (firstNumber) => {
           rl.question("enter second number: ", (secondNumber) => {
-            const x = parseFloat(firstNumber);
-            const y = parseFloat(secondNumber);
+            try {
+              // Validate user input
+              const x = CalculatorSupport.validateInput(firstNumber);
+              const y = CalculatorSupport.validateInput(secondNumber);
+              //Controlling Calculation Process
+              switch (choice) {
+                // Addition Operation
+                case "1":
+                  CalculatorSupport.addition(x, y);
+                  controlPanel();
+                  break;
 
-            //Controlling Calculation Process
-            switch (choice) {
-              // Addition Operation
-              case "1":
-                CalculatorSupport.addition(x, y);
-                controlPanel();
-                break;
+                // Subtraction Operation
+                case "2":
+                  CalculatorSupport.subtraction(x, y);
+                  controlPanel();
+                  break;
 
-              // Subtraction Operation
-              case "2":
-                CalculatorSupport.subtraction(x, y);
-                controlPanel();
-                break;
+                // Multiplication Operation
+                case "3":
+                  CalculatorSupport.multiplication(x, y);
+                  controlPanel();
+                  break;
 
-              // Multiplication Operation
-              case "3":
-                CalculatorSupport.multiplication(x, y);
-                controlPanel();
-                break;
+                // Division Operation
+                case "4":
+                  CalculatorSupport.division(x, y);
+                  controlPanel();
+                  break;
 
-              // Division Operation
-              case "4":
-                CalculatorSupport.division(x, y);
-                controlPanel();
-                break;
-
-              // Exponentiation Operation
-              case "5":
-                CalculatorSupport.exponentiation(x, y);
-                controlPanel();
-                break;
+                // Exponentiation Operation
+                case "5":
+                  CalculatorSupport.exponentiation(x, y);
+                  controlPanel();
+                  break;
+              }
+            } catch (error) {
+              console.log("Error: " + error.message);
+              controlPanel();
             }
           });
         });
@@ -109,21 +114,27 @@ function controlPanel() {
             break;
         }
         // Getting user input number
-        rl.question("enter a number: ", (number) => {
-          const x = parseFloat(number);
 
-          //Controlling Calculation Process
-          switch (choice) {
-            // Square Root Operation
-            case "6":
-              CalculatorSupport.squareRoot(x);
-              controlPanel();
-              break;
-            // Factorial Operation
-            case "7":
-              CalculatorSupport.factorial(x);
-              controlPanel();
-              break;
+        rl.question("enter a number: ", (number) => {
+          try {
+            const x = CalculatorSupport.validateInput(number);
+
+            //Controlling Calculation Process
+            switch (choice) {
+              // Square Root Operation
+              case "6":
+                CalculatorSupport.squareRoot(x);
+                controlPanel();
+                break;
+              // Factorial Operation
+              case "7":
+                CalculatorSupport.factorial(x);
+                controlPanel();
+                break;
+            }
+          } catch (error) {
+            console.log("Error: " + error.message);
+            controlPanel();
           }
         });
         break;
